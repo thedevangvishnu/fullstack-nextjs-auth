@@ -47,12 +47,14 @@ export const RegisterForm = () => {
                 control={form.control}
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <Input
-                      type="name"
-                      placeholder="Your name"
-                      {...field}
-                      className="rounded-[30px] w-full h-10 placeholder:text-neutral-700"
-                    />
+                    <FormControl>
+                      <Input
+                        type="name"
+                        placeholder="Your name"
+                        {...field}
+                        className="rounded-[30px] w-full h-10 placeholder:text-neutral-700"
+                      />
+                    </FormControl>
                     <div className="h-3 text-right italic">
                       <FormMessage className="text-[12px] italic text-red-600 font-semibold" />
                     </div>
@@ -65,12 +67,14 @@ export const RegisterForm = () => {
                 control={form.control}
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <Input
-                      type="email"
-                      placeholder="abc@email.com"
-                      {...field}
-                      className="rounded-[30px] w-full h-10 placeholder:text-neutral-700"
-                    />
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder="abc@email.com"
+                        {...field}
+                        className="rounded-[30px] w-full h-10 placeholder:text-neutral-700"
+                      />
+                    </FormControl>
                     <div className="h-3 text-right italic">
                       <FormMessage className="text-[12px] italic text-red-600 font-semibold" />
                     </div>
@@ -83,12 +87,14 @@ export const RegisterForm = () => {
                 control={form.control}
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <Input
-                      type="password"
-                      placeholder="*******"
-                      {...field}
-                      className={`flex items-center rounded-[30px] w-full h-10 placeholder:text-neutral-700 ${form.formState}`}
-                    />
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="*******"
+                        {...field}
+                        className={`flex items-center rounded-[30px] w-full h-10 placeholder:text-neutral-700 ${form.formState}`}
+                      />
+                    </FormControl>
                     <div className="h-3 text-right italic">
                       <FormMessage className="text-[12px] italic text-red-600 font-semibold" />
                     </div>
