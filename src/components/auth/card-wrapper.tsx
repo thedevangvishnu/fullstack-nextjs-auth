@@ -14,7 +14,7 @@ import { SocialSignOns } from "./social-sign-ons";
 type CardWrapperProps = {
   title: string;
   description: string;
-  body?: React.ReactNode;
+  children: React.ReactNode;
   hasSocialSignOn: boolean;
   secondaryActionLabel: string;
   secondaryActionLink: string;
@@ -23,21 +23,21 @@ type CardWrapperProps = {
 export const CardWrapper = ({
   title,
   description,
-  body,
+  children,
   hasSocialSignOn,
   secondaryActionLabel,
   secondaryActionLink = "",
 }: CardWrapperProps) => {
   return (
-    <Card className="w-[300px] md:w-[450px] px-2 md:px-4 flex flex-col items-center gap-4 border-none bg-trasparent ">
+    <Card className="w-[300px]  flex flex-col items-center gap-2 border-none bg-trasparent">
       <CardHeader className="text-center">
         <h1 className="text-3xl md:text-4xl font-semibold text-neutral-950">
           {title}
         </h1>
         <p className="text-neutral-800">{description}</p>
       </CardHeader>
-      <CardContent>{body}</CardContent>
-      <CardFooter className="flex flex-col gap-4">
+      <CardContent className="px-0 w-full">{children}</CardContent>
+      <CardFooter className="flex flex-col gap-4 w-full px-0 mt-[-10px]">
         {hasSocialSignOn && <SocialSignOns />}
         <Button
           variant="link"

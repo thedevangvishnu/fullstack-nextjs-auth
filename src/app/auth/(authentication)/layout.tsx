@@ -9,7 +9,7 @@ export default function AuthLayout({
     <main className="w-full h-screen flex">
       <div className="h-full hidden invisible md:block md:visible md:w-1/2 relative">
         <Image
-          src="/images/bg3.jpg"
+          src="/images/bg2.jpg"
           alt="Banner Poster"
           layout="fill"
           objectFit="cover"
