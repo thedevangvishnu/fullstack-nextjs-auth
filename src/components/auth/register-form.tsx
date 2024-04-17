@@ -6,7 +6,6 @@ import {
   Form,
   FormField,
   FormItem,
-  FormLabel,
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
@@ -19,6 +18,7 @@ export const RegisterForm = () => {
   const form = useForm<RegisterFormType>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
