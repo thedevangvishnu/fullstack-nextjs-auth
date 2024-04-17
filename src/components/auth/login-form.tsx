@@ -9,7 +9,7 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
-import { LoginFormType, LoginSchema } from "@/app/schemas";
+import { LoginFormType, LoginSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
