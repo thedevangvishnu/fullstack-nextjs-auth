@@ -15,6 +15,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useTransition } from "react";
 import { login } from "@/app/actions/login";
+import toast from "react-hot-toast";
+import { MyToaster } from "./my-toaster";
+import { BeatLoader } from "react-spinners";
 
 export const LoginForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -29,7 +32,11 @@ export const LoginForm = () => {
 
   const onFormSubmit = (values: LoginFormType) => {
     startTransition(() => {
-      login(values);
+      login(values).then((data) => {
+        if (data?.error as string) {
+          toast.error(data?.error as string);
+        }
+      });
     });
   };
 
@@ -52,6 +59,7 @@ export const LoginForm = () => {
                   <FormItem className="w-full">
                     <FormControl>
                       <Input
+                        disabled={isPending}
                         type="email"
                         placeholder="abc@email.com"
                         {...field}
@@ -72,6 +80,7 @@ export const LoginForm = () => {
                   <FormItem className="w-full">
                     <FormControl>
                       <Input
+                        disabled={isPending}
                         type="password"
                         placeholder="*******"
                         {...field}
@@ -87,16 +96,20 @@ export const LoginForm = () => {
             </div>
 
             <Button
+              disabled={isPending}
               type="submit"
               variant="default"
               size="lg"
               className="w-full mt-10 font-semibold rounded-[40px] text-white backdrop-blur-xl bg-orange-600 hover:bg-orange-500 hover:shadow-lg duration-200 uppercase"
             >
-              SIGN IN
+              {isPending ? <BeatLoader size={8} color="white" /> : "SIGN IN"}
             </Button>
           </form>
         </Form>
       </CardWrapper>
+      <div className="absolute right-4 bottom-4">
+        <MyToaster />
+      </div>
     </div>
   );
 };
