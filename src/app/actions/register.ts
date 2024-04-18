@@ -1,3 +1,5 @@
+"use server";
+
 import { createNewUser, getUserByEmail } from "@/data/user";
 import { RegisterSchema, RegisterFormType } from "@/schemas";
 import bcrypt from "bcryptjs";
