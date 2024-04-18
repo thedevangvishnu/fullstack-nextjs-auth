@@ -29,7 +29,7 @@ export const CardWrapper = ({
   secondaryActionLink = "",
 }: CardWrapperProps) => {
   return (
-    <Card className="w-[300px]  flex flex-col items-center gap-2 border-none bg-trasparent">
+    <Card className="w-[300px] flex flex-col items-center gap-2 border-none bg-trasparent">
       <CardHeader className="text-center">
         <h1 className="text-3xl md:text-4xl font-semibold text-neutral-950">
           {title}

@@ -13,8 +13,12 @@ import { LoginFormType, LoginSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useTransition } from "react";
+import { login } from "@/app/actions/login";
 
 export const LoginForm = () => {
+  const [isPending, startTransition] = useTransition();
+
   const form = useForm<LoginFormType>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -24,8 +28,8 @@ export const LoginForm = () => {
   });
 
   const onFormSubmit = (values: LoginFormType) => {
-    console.log({
-      values,
+    startTransition(() => {
+      login(values);
     });
   };
 

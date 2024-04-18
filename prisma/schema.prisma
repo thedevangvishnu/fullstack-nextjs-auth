@@ -14,14 +14,21 @@ datasource db {
 }
 
 
+enum UserRole {
+  USER 
+  ADMIN
+}
+
 model User {
   id                      String    @id @default(cuid())
   name                    String?
   email                   String?   @unique
   emailVerified           DateTime? @map("email_verified")
+  password                String?
   image                   String?
   accounts                Account[]
-  hasTwoFactorEnabled     Boolean @default(false)
+  role                    UserRole  @default(USER)
+  hasTwoFactorEnabled     Boolean   @default(false)
   isTwoFactorConfirmed    TwoFactorConfirmation?
  
   @@map("users")
