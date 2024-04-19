@@ -15,9 +15,11 @@ type CardWrapperProps = {
   title: string;
   description: string;
   children: React.ReactNode;
-  hasSocialSignOn: boolean;
+  hasSocialSignOn?: boolean;
   secondaryActionLabel: string;
   secondaryActionLink: string;
+  hasBorder?: boolean;
+  hasBg?: boolean;
 };
 
 export const CardWrapper = ({
@@ -27,9 +29,15 @@ export const CardWrapper = ({
   hasSocialSignOn,
   secondaryActionLabel,
   secondaryActionLink = "",
+  hasBorder = false,
+  hasBg = false,
 }: CardWrapperProps) => {
   return (
-    <Card className="w-[300px] flex flex-col items-center gap-2 border-none bg-trasparent">
+    <Card
+      className={`w-[300px] flex flex-col items-center gap-2 border-none bg-trasparent ${
+        hasBorder ? "border-2" : "border-none"
+      } ${hasBg ? "bg-neutral-50" : "bg-transparent"}`}
+    >
       <CardHeader className="text-center">
         <h1 className="text-3xl md:text-4xl font-semibold text-neutral-950">
           {title}

@@ -13,14 +13,22 @@ import { LoginFormType, LoginSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useTransition } from "react";
+import { useCallback, useEffect, useState, useTransition } from "react";
 import { login } from "@/app/actions/login";
 import toast from "react-hot-toast";
-import { MyToaster } from "./my-toaster";
+import { MyToaster } from "@/components/my-toaster";
 import { BeatLoader } from "react-spinners";
+import { useSearchParams } from "next/navigation";
+import { UrlErrorToaster } from "./url-error-toaster";
 
 export const LoginForm = () => {
+  const [urlError, setUrlError] = useState("");
+  const [error, setError] = useState("");
+
   const [isPending, startTransition] = useTransition();
+
+  const searchParams = useSearchParams();
+  const authError = searchParams.get("error");
 
   const form = useForm<LoginFormType>({
     resolver: zodResolver(LoginSchema),
@@ -30,15 +38,29 @@ export const LoginForm = () => {
     },
   });
 
-  const onFormSubmit = (values: LoginFormType) => {
+  const updateUrlError = useCallback(() => {
+    const error =
+      authError === "OAuthAccountNotLinked"
+        ? "Email already in use with different provider"
+        : "";
+
+    setUrlError(error);
+  }, [authError]);
+
+  useEffect(() => {
+    updateUrlError();
+  }, [updateUrlError]);
+
+  const onFormSubmit = useCallback((values: LoginFormType) => {
     startTransition(() => {
       login(values).then((data) => {
         if (data?.error as string) {
+          setError(data?.error as string);
           toast.error(data?.error as string);
         }
       });
     });
-  };
+  }, []);
 
   return (
     <div className="w-full h-full flex justify-center items-center">
@@ -109,6 +131,7 @@ export const LoginForm = () => {
       </CardWrapper>
       <div className="absolute right-4 bottom-4">
         <MyToaster />
+        {urlError && <UrlErrorToaster error={urlError} />}
       </div>
     </div>
   );

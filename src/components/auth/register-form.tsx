@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { useTransition } from "react";
 import { register } from "@/app/actions/register";
 import toast from "react-hot-toast";
-import { MyToaster } from "./my-toaster";
+import { MyToaster } from "@/components/my-toaster";
 import { BeatLoader } from "react-spinners";
 
 export const RegisterForm = () => {
