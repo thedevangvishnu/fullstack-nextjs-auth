@@ -2,10 +2,12 @@
 
 import { signIn } from "@/auth";
 import { getUserByEmail } from "@/data/user";
+import { sendVerificationEmail } from "@/lib/emails";
 import {
   PROFILE_PAGE_REDIRECT_URL,
   //   PROFILE_PAGE_REDIRECT_URL,
 } from "@/lib/routes";
+import { generateVerificationToken } from "@/lib/tokens";
 import { LoginFormType, LoginSchema } from "@/schemas";
 import { AuthError } from "next-auth";
 
@@ -21,6 +23,21 @@ export const login = async (values: LoginFormType) => {
       return { error: "Invalid credentials!" };
 
     // Block user forn signing in if their email is not verified. Send comfirmation email again!. Add this same blocking logic in the fallback too (inside signIn)
+
+    if (!user.emailVerified) {
+      const verificationToken = await generateVerificationToken(email);
+
+      if (verificationToken) {
+        await sendVerificationEmail(
+          verificationToken.email,
+          verificationToken.token
+        );
+
+        return { success: "Confirmation email sent!" };
+      } else {
+        return { error: "Error signing in! Email not verified!" };
+      }
+    }
 
     try {
       await signIn("credentials", {

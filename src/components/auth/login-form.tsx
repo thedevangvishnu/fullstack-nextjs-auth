@@ -52,7 +52,9 @@ export const LoginForm = () => {
   const onFormSubmit = useCallback((values: LoginFormType) => {
     startTransition(() => {
       login(values).then((data) => {
-        if (data?.error as string) {
+        if (data?.success) {
+          toast.success(data?.success);
+        } else {
           toast.error(data?.error as string);
         }
       });
