@@ -3,7 +3,6 @@ import toast, { Toaster } from "react-hot-toast";
 
 export const UrlErrorToaster = ({ error }: { error: string }) => {
   useEffect(() => {
-    console.log("run");
     toast.error(error);
   }, [error]);
 

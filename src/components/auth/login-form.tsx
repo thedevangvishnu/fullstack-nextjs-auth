@@ -23,8 +23,6 @@ import { UrlErrorToaster } from "./url-error-toaster";
 
 export const LoginForm = () => {
   const [urlError, setUrlError] = useState("");
-  const [error, setError] = useState("");
-
   const [isPending, startTransition] = useTransition();
 
   const searchParams = useSearchParams();
@@ -55,7 +53,6 @@ export const LoginForm = () => {
     startTransition(() => {
       login(values).then((data) => {
         if (data?.error as string) {
-          setError(data?.error as string);
           toast.error(data?.error as string);
         }
       });
