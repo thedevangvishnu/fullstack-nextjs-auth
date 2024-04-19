@@ -1,29 +1,31 @@
 "use client";
 
-import toast, { Toaster } from "react-hot-toast";
 import { CardWrapper } from "./card-wrapper";
-import { useCallback, useEffect, useTransition, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { MyToaster } from "../my-toaster";
 import { BeatLoader } from "react-spinners";
 import { newVerification } from "@/app/actions/new-verification";
 import { useSearchParams } from "next/navigation";
+import { SuccessMessage } from "../success-message";
+import { ErrorMessage } from "../error-message copy";
 
 export const NewVerificationCard = () => {
-  const [isPending, startTransition] = useTransition();
+  const [success, setSuccess] = useState<string | undefined>("");
+  const [error, setError] = useState<string | undefined>("");
 
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
 
   const onSubmit = useCallback(() => {
-    startTransition(() => {
-      newVerification(token).then((data) => {
+    newVerification(token)
+      .then((data) => {
         if (data.success) {
-          toast.success(data?.success);
+          setSuccess(data?.success);
         } else {
-          toast.error(data?.error as string);
+          setError(data?.error);
         }
-      });
-    });
+      })
+      .catch((error) => [setError("Something went wrong!")]);
   }, [token]);
 
   useEffect(() => {
@@ -40,12 +42,19 @@ export const NewVerificationCard = () => {
       hasBorder
     >
       <div className="w-full flex flex-col items-center justify-center gap-2">
-        {isPending && (
+        {!success && !error && (
           <>
             <p className="font-semibold">Confirming your email</p>
             <BeatLoader />
           </>
         )}
+        {success && (
+          <>
+            <SuccessMessage message={success} />
+            <p className="font-medium text-white">Now, try signing in again.</p>
+          </>
+        )}
+        {error && <ErrorMessage message={error} />}
       </div>
       <MyToaster />
     </CardWrapper>

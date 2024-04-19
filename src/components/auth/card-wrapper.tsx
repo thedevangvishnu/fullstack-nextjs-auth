@@ -34,9 +34,9 @@ export const CardWrapper = ({
 }: CardWrapperProps) => {
   return (
     <Card
-      className={`w-[300px] flex flex-col items-center gap-2 border-none bg-trasparent ${
-        hasBorder ? "border-2" : "border-none"
-      } ${hasBg ? "bg-neutral-50" : "bg-transparent"}`}
+      className={`w-[300px] flex flex-col items-center gap-2 bg-trasparent bg-transparent ${
+        hasBorder ? "border-2 border-white" : "border-none"
+      }  ${hasBg ? "backdrop-blur-2xl" : ""}`}
     >
       <CardHeader className="text-center">
         <h1 className="text-3xl md:text-4xl font-semibold text-neutral-950">
@@ -51,7 +51,11 @@ export const CardWrapper = ({
           variant="link"
           size="sm"
           asChild
-          className="hover:text-orange-600"
+          className={` ${
+            hasBorder
+              ? "text-neutral-200 hover:text-white"
+              : "hover:text-orange-600"
+          }`}
         >
           <Link href={secondaryActionLink}>{secondaryActionLabel}</Link>
         </Button>
