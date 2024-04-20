@@ -33,30 +33,32 @@ export const NewVerificationCard = () => {
   }, [onSubmit]);
 
   return (
-    <CardWrapper
-      title="Verification"
-      description="Email confirmation process"
-      secondaryActionLabel="Back to Login"
-      secondaryActionLink="/auth/logn"
-      hasBg
-      hasBorder
-    >
-      <div className="w-full flex flex-col items-center justify-center gap-2">
-        {!success && !error && (
-          <>
-            <p className="font-semibold">Confirming your email</p>
-            <BeatLoader />
-          </>
-        )}
-        {success && !error && (
-          <>
-            <SuccessMessage message={success} />
-            <p className="font-medium text-white">Now, try signing in again.</p>
-          </>
-        )}
-        {error && <ErrorMessage message={error} />}
-      </div>
-      <MyToaster />
-    </CardWrapper>
+    <div className="w-full h-full flex justify-center items-center">
+      <CardWrapper
+        title="Verification"
+        description="Email confirmation process"
+        secondaryActionLabel="Back to Login"
+        secondaryActionLink="/auth/logn"
+      >
+        <div className="w-full flex flex-col items-center justify-center gap-2">
+          {!success && !error && (
+            <>
+              <p className="font-semibold">Confirming your email</p>
+              <BeatLoader />
+            </>
+          )}
+          {success && !error && (
+            <>
+              <SuccessMessage message={success} />
+              <p className="font-medium text-white">
+                Now, try signing in again.
+              </p>
+            </>
+          )}
+          {error && <ErrorMessage message={error} />}
+        </div>
+        <MyToaster />
+      </CardWrapper>
+    </div>
   );
 };
