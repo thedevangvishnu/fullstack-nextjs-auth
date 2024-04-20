@@ -49,7 +49,6 @@ export const ResetPasswordForm = () => {
         description="Enter your email to get reset link"
         secondaryActionLink="/auth/login"
         secondaryActionLabel="Back to Login"
-        s
       >
         <Form {...form}>
           <form action="" onSubmit={form.handleSubmit(onFormSubmit)}>
