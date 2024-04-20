@@ -43,3 +43,16 @@ export const createNewUser = async (
     return null;
   }
 };
+
+export const updatePassword = async (email: string, password: string) => {
+  try {
+    const updatedUser = await db.user.update({
+      where: { email },
+      data: {
+        password,
+      },
+    });
+  } catch (error) {
+    return null;
+  }
+};

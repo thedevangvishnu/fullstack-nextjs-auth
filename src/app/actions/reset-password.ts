@@ -16,6 +16,9 @@ export const resetPassword = async (values: ResetPasswordFormType) => {
     if (!existingUser || !existingUser.email || !existingUser.password)
       return { error: "Invalid email!" };
 
+    if (!existingUser.emailVerified)
+      return { error: "Verify your email first!" };
+
     const passwordResetToken = await generatePasswordResetToken(
       existingUser.email!
     );

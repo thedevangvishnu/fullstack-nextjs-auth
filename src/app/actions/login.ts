@@ -33,7 +33,7 @@ export const login = async (values: LoginFormType) => {
           verificationToken.token
         );
 
-        return { success: "Confirmation email sent!" };
+        return { success: "First confirm your account. Email sent!" };
       } else {
         return { error: "Error signing in! Email not verified!" };
       }
