@@ -45,6 +45,7 @@ export const login = async (values: LoginFormType) => {
         password,
         redirectTo: PROFILE_PAGE_REDIRECT_URL,
       });
+      return { success: "Login successfull!" };
     } catch (error) {
       if (error instanceof AuthError) {
         switch (error.type) {
