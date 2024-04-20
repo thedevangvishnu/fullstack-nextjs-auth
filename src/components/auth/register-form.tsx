@@ -13,13 +13,16 @@ import { RegisterFormType, RegisterSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useTransition } from "react";
+import { useTransition, useState } from "react";
 import { register } from "@/app/actions/register";
 import toast from "react-hot-toast";
 import { MyToaster } from "@/components/my-toaster";
 import { BeatLoader } from "react-spinners";
+import { FaEyeSlash, FaEye } from "react-icons/fa6";
 
 export const RegisterForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<RegisterFormType>({
@@ -105,15 +108,29 @@ export const RegisterForm = () => {
                 name="password"
                 control={form.control}
                 render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <Input
-                        disabled={isPending}
-                        type="password"
-                        placeholder="*******"
-                        {...field}
-                        className={`flex items-center rounded-[30px] w-full h-10 placeholder:text-neutral-700 ${form.formState}`}
-                      />
+                  <FormItem className="w-full relative">
+                    <FormControl className="relative">
+                      <>
+                        <Input
+                          disabled={isPending}
+                          type={!showPassword ? "password" : "text"}
+                          placeholder="*******"
+                          {...field}
+                          className={`flex items-center rounded-[30px] w-full h-10 placeholder:text-neutral-700 pr-10 ${form.formState}`}
+                        />
+                        {!showPassword && (
+                          <FaEyeSlash
+                            className="absolute top-1 right-4 cursor-pointer text-neutral-500"
+                            onClick={() => setShowPassword(true)}
+                          />
+                        )}
+                        {showPassword && (
+                          <FaEye
+                            className="absolute top-1 right-4 cursor-pointer text-neutral-500"
+                            onClick={() => setShowPassword(false)}
+                          />
+                        )}
+                      </>
                     </FormControl>
                     <div className="h-3 text-right italic">
                       <FormMessage className="text-[12px] italic text-red-600 font-semibold" />

@@ -7,7 +7,7 @@ import { BeatLoader } from "react-spinners";
 import { newVerification } from "@/app/actions/new-verification";
 import { useSearchParams } from "next/navigation";
 import { SuccessMessage } from "../success-message";
-import { ErrorMessage } from "../error-message copy";
+import { ErrorMessage } from "../error-message";
 
 export const NewVerificationCard = () => {
   const [success, setSuccess] = useState<string | undefined>("");

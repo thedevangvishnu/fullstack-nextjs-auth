@@ -13,15 +13,18 @@ import { NewPasswordFormType, NewPasswordSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useCallback, useTransition } from "react";
+import { useCallback, useTransition, useState } from "react";
 import toast from "react-hot-toast";
 import { MyToaster } from "@/components/my-toaster";
 import { BeatLoader } from "react-spinners";
 import { useSearchParams } from "next/navigation";
-
 import { newPassword } from "@/app/actions/new-password";
+import { FaEyeSlash, FaEye } from "react-icons/fa6";
 
 export const NewPasswordForm = () => {
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const [isPending, startTransition] = useTransition();
 
   const searchParams = useSearchParams();
@@ -72,7 +75,6 @@ export const NewPasswordForm = () => {
         description="Enter your new password"
         secondaryActionLink="/auth/login"
         secondaryActionLabel="Back to Login"
-        s
       >
         <Form {...form}>
           <form action="" onSubmit={form.handleSubmit(onFormSubmit)}>
@@ -81,15 +83,29 @@ export const NewPasswordForm = () => {
                 name="password"
                 control={form.control}
                 render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <Input
-                        disabled={isPending}
-                        type="password"
-                        placeholder="New password"
-                        {...field}
-                        className="rounded-[30px] w-full h-10 placeholder:text-neutral-700"
-                      />
+                  <FormItem className="w-full relative">
+                    <FormControl className="relative">
+                      <>
+                        <Input
+                          disabled={isPending}
+                          type={!showNewPassword ? "password" : "text"}
+                          placeholder="New Password"
+                          {...field}
+                          className={`flex items-center rounded-[30px] w-full h-10 placeholder:text-neutral-700 pr-10 ${form.formState}`}
+                        />
+                        {!showNewPassword && (
+                          <FaEyeSlash
+                            className="absolute top-1 right-4 cursor-pointer text-neutral-500"
+                            onClick={() => setShowNewPassword(true)}
+                          />
+                        )}
+                        {showNewPassword && (
+                          <FaEye
+                            className="absolute top-1 right-4 cursor-pointer text-neutral-500"
+                            onClick={() => setShowNewPassword(false)}
+                          />
+                        )}
+                      </>
                     </FormControl>
                     <div className="h-3 text-right italic">
                       <FormMessage className="text-[12px] italic text-red-600 font-semibold" />
@@ -102,15 +118,29 @@ export const NewPasswordForm = () => {
                 name="confirmPassword"
                 control={form.control}
                 render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <Input
-                        disabled={isPending}
-                        type="password"
-                        placeholder="Confirm password"
-                        {...field}
-                        className="rounded-[30px] w-full h-10 placeholder:text-neutral-700"
-                      />
+                  <FormItem className="w-full relative">
+                    <FormControl className="relative">
+                      <>
+                        <Input
+                          disabled={isPending}
+                          type={!showConfirmPassword ? "password" : "text"}
+                          placeholder="Confirm Password"
+                          {...field}
+                          className={`flex items-center rounded-[30px] w-full h-10 placeholder:text-neutral-700 pr-10 ${form.formState}`}
+                        />
+                        {!showConfirmPassword && (
+                          <FaEyeSlash
+                            className="absolute top-1 right-4 cursor-pointer text-neutral-500"
+                            onClick={() => setShowConfirmPassword(true)}
+                          />
+                        )}
+                        {showConfirmPassword && (
+                          <FaEye
+                            className="absolute top-1 right-4 cursor-pointer text-neutral-500"
+                            onClick={() => setShowConfirmPassword(false)}
+                          />
+                        )}
+                      </>
                     </FormControl>
                     <div className="h-3 text-right italic">
                       <FormMessage className="text-[12px] italic text-red-600 font-semibold" />

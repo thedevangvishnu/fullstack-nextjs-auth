@@ -21,9 +21,11 @@ import { BeatLoader } from "react-spinners";
 import { useSearchParams } from "next/navigation";
 import { UrlErrorToaster } from "./url-error-toaster";
 import Link from "next/link";
+import { FaEyeSlash, FaEye } from "react-icons/fa6";
 
 export const LoginForm = () => {
   const [urlError, setUrlError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const searchParams = useSearchParams();
@@ -99,15 +101,29 @@ export const LoginForm = () => {
                 name="password"
                 control={form.control}
                 render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <Input
-                        disabled={isPending}
-                        type="password"
-                        placeholder="*******"
-                        {...field}
-                        className={`flex items-center rounded-[30px] w-full h-10 placeholder:text-neutral-700 ${form.formState}`}
-                      />
+                  <FormItem className="w-full relative">
+                    <FormControl className="relative">
+                      <>
+                        <Input
+                          disabled={isPending}
+                          type={!showPassword ? "password" : "text"}
+                          placeholder="*******"
+                          {...field}
+                          className={`flex items-center rounded-[30px] w-full h-10 placeholder:text-neutral-700 pr-10 ${form.formState}`}
+                        />
+                        {!showPassword && (
+                          <FaEyeSlash
+                            className="absolute top-1 right-4 cursor-pointer text-neutral-500"
+                            onClick={() => setShowPassword(true)}
+                          />
+                        )}
+                        {showPassword && (
+                          <FaEye
+                            className="absolute top-1 right-4 cursor-pointer text-neutral-500"
+                            onClick={() => setShowPassword(false)}
+                          />
+                        )}
+                      </>
                     </FormControl>
                     <div className="h-3 flex items-center justify-between">
                       <Button
