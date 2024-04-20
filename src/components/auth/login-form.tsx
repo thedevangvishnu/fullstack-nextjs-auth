@@ -20,6 +20,7 @@ import { MyToaster } from "@/components/my-toaster";
 import { BeatLoader } from "react-spinners";
 import { useSearchParams } from "next/navigation";
 import { UrlErrorToaster } from "./url-error-toaster";
+import Link from "next/link";
 
 export const LoginForm = () => {
   const [urlError, setUrlError] = useState("");
@@ -108,8 +109,18 @@ export const LoginForm = () => {
                         className={`flex items-center rounded-[30px] w-full h-10 placeholder:text-neutral-700 ${form.formState}`}
                       />
                     </FormControl>
-                    <div className="h-3 text-right italic">
-                      <FormMessage className="text-[12px] italic text-red-600 font-semibold" />
+                    <div className="h-3 flex items-center justify-between">
+                      <Button
+                        variant="link"
+                        size="sm"
+                        asChild
+                        className=" hover:text-orange-500 duration-200"
+                      >
+                        <Link href="/auth/reset-password" className="mt-3">
+                          Forgot password?
+                        </Link>
+                      </Button>
+                      <FormMessage className="text-[12px] italic text-red-600 font-semibold ml-auto" />
                     </div>
                   </FormItem>
                 )}
@@ -121,7 +132,7 @@ export const LoginForm = () => {
               type="submit"
               variant="default"
               size="lg"
-              className="w-full mt-10 font-semibold rounded-[40px] text-white backdrop-blur-xl bg-orange-600 hover:bg-orange-500 hover:shadow-lg duration-200 uppercase"
+              className="w-full mt-10 font-semibold rounded-[40px] text-white bg-orange-600 hover:bg-orange-500 hover:shadow-lg duration-200 uppercase"
             >
               {isPending ? <BeatLoader size={8} color="white" /> : "SIGN IN"}
             </Button>

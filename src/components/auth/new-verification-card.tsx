@@ -48,7 +48,7 @@ export const NewVerificationCard = () => {
             <BeatLoader />
           </>
         )}
-        {success && (
+        {success && !error && (
           <>
             <SuccessMessage message={success} />
             <p className="font-medium text-white">Now, try signing in again.</p>
