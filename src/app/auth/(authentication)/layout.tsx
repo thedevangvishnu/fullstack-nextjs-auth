@@ -17,6 +17,8 @@ export default function AuthLayout({
           layout="fill"
           objectFit="cover"
           objectPosition="center"
+          placeholder="blur"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUGFdjeBXB8x8ABcwCTjPM/AUAAAAASUVORK5CYII="
         />
       </div>
       <div className="w-full md:w-1/2">

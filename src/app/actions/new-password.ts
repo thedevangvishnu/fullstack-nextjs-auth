@@ -2,6 +2,7 @@
 
 import { getPasswordResetTokenByToken } from "@/data/password-reset-token";
 import { getUserByEmail, updatePassword } from "@/data/user";
+import { db } from "@/lib/db";
 import { NewPasswordFormType, NewPasswordSchema } from "@/schemas";
 import bcrypt from "bcryptjs";
 
@@ -29,6 +30,10 @@ export const newPassword = async (
     if (existingUser) {
       const hashedPassword = await bcrypt.hash(password, 10);
       await updatePassword(existingUser.email!, hashedPassword);
+
+      await db.passwordResetToken.delete({
+        where: { id: existingToken.id },
+      });
 
       return { success: "Password udpated!" };
     } else {
